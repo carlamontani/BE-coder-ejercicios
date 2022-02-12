@@ -29,8 +29,8 @@ class Usuario {
     }
 
     getBookNames():String[] {
-        const prueba = this.libros.map(libro => libro.titulo)
-        return prueba
+        const bookNames = this.libros.map(libro => libro.titulo)
+        return bookNames
     }
 }
 
