@@ -6,6 +6,7 @@ type ProductoType = {
     price: number
     thumbnail: string
 }
+
 interface ContenedorType {
     productos: ProductoType[]
     maxId: number
@@ -17,7 +18,7 @@ interface ContenedorType {
     deleteAll(): Promise<void>
 }
 
-class Contenedor implements ContenedorType {
+module.exports =  class Contenedor implements ContenedorType {
     productos: ProductoType[]
     maxId: number
     archivo: string
@@ -44,7 +45,7 @@ class Contenedor implements ContenedorType {
         }
     }
 
-    async getById(id: number): Promise<ProductoType> {
+    async getById(id: number | undefined): Promise<ProductoType> {
         try {
             const result = this.productos.filter(item => item.id == id);
             return result[0]
@@ -94,38 +95,16 @@ class Contenedor implements ContenedorType {
             throw new Error(error)
         }
     }
+
+    async returnRandom(): Promise<any> {
+        try {
+            await this.getAll()
+            let listIds = this.productos.map(choice => ({ id: choice.id }));
+            let random = Math.floor(Math.random() * listIds.length);
+            let randomId = listIds[random].id;
+            return await this.getById(randomId)
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 }
-
-const contenedor = new Contenedor('productos.txt')
-
-const p1: ProductoType = {
-    title: 'Book',
-    price: 100,
-    thumbnail: '#',
-}
-
-const p2: ProductoType = {
-    title: 'Magazine',
-    price: 20,
-    thumbnail: '#',
-}
-
-const p3: ProductoType = {
-    title: 'Album',
-    price: 150,
-    thumbnail: '#',
-}
-
-async function run() {
-    await contenedor.deleteAll()
-    await contenedor.save(p1)
-    await contenedor.save(p2)
-
-    console.log(await contenedor.save(p3))
-
-    await contenedor.deleteById(1)
-    await contenedor.save(p1)
-    console.log( await contenedor.getById(3))
-}
-
-run()
