@@ -1,14 +1,11 @@
 {
   "name": "clase-03",
   "version": "1.0.0",
-  "description": "primer proyecto",
+  "description": "proyectos clase 3",
   "main": "src/index.js",
   "scripts": {
-    "http-ts": "nodemon --config nodemon.json src/serverHttp.ts",
-    "express-ts": "nodemon --config nodemon.json src/serverExpress.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "http": "nodemon --inspect ./src/serverHttp.js",
-    "express": "nodemon --inspect ./src/serverExpress.js"
+    "start": "nodemon --inspect src/server.js",
+    "start-ejercicio": "nodemon --inspect src/ejercicio.js"
   },
   "author": "car",
   "license": "ISC",
