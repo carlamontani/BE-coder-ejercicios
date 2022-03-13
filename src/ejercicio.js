@@ -73,11 +73,26 @@ routerProductos.put("/:id", (req, res) => {
   });
 
   console.log(productos)
+  res.status(200).json({
+    productos,
+  });
 });
 
 //delete
 routerProductos.delete("/:id", (req, res) => {
-  //seguir
+  const { id } = req.params;
+
+  productos.forEach(producto => {
+    if (Number(id) === producto.id) {
+      productos.splice(id-1, 1)
+    } else {
+      //newList.push(producto) //REF // validaciones
+    }
+  });
+
+  res.status(200).json({
+    productos,
+  });
 });
 
 app.use("/productos", routerProductos)
