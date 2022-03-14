@@ -1,28 +1,49 @@
-const express = require('express')
+const express = require('express');
+const app = express();
 
-const app = express()
-app.use(express.json()) //middleware
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./src/public"))
 
-const router1 = express.Router();
-const router2 = express.Router();
+const personas = []
+const mascotas = []
 
-router1.get("/", (req, res) => {
-  console.log("router1");
-  res.status(200).send("Router1");
-});
+const routerPersonas = express.Router();
+const routerMascotas = express.Router();
 
-router2.get("/", (req, res) => {
-  console.log("router2")
-  res.status(200). send("Router2");
+
+//router personas
+
+routerPersonas.get("/", (req,res) =>{
+    res.status(200).json({personas})
 })
 
-app.use("/router1", router1)
-app.use("/router2", router2)
-const PORT = 8082
+routerPersonas.post("/", (req,res) =>{
+    const {body} = req
+    personas.push(body)
+    res.status(200).send("persona agregada")
+})
 
+
+//router mascotas
+
+routerMascotas.get("/", (req,res) =>{
+    res.status(200).json({mascotas})
+})
+
+routerMascotas.post("/", (req,res) =>{
+    const {body} = req
+    mascotas.push(body)
+    res.status(200).send("mascota agregada")
+})
+
+/////
+app.use("/api/personas", routerPersonas)
+app.use("/api/mascotas", routerMascotas)
+
+
+const PORT = 3033;
 const server = app.listen(PORT, () =>
-  console.log(`Server en port http://localhost:8082`)
-)
-
-server.on('error', (err) => console.log(err))
+    console.log(`Server en port http://localhost:${PORT}`)
+);
+server.on("error", (err) => console.log(err))

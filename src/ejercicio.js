@@ -1,8 +1,9 @@
 const express = require('express')
-
 const app = express()
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static("./src/public"))
 
 const routerProductos = express.Router();
 
@@ -96,8 +97,8 @@ routerProductos.delete("/:id", (req, res) => {
 });
 
 app.use("/productos", routerProductos)
-const PORT = 8080
 
+const PORT = 8080
 const server = app.listen(PORT, () =>
 console.log(`Server en port http://localhost:8080`)
 )
