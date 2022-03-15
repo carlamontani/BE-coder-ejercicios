@@ -51,7 +51,10 @@ routerProductos.get("/:id", (req, res) => {
 //post
 routerProductos.post("/", (req, res) => {
   const { body } = req;
-  productos.push(body)
+
+  const newId = (productos.length)+1
+
+  productos.push({...body, id : newId})
 
   res.status(200).json({
     productos,
@@ -87,7 +90,7 @@ routerProductos.delete("/:id", (req, res) => {
     if (Number(id) === producto.id) {
       productos.splice(id-1, 1)
     } else {
-      //newList.push(producto) //REF // validaciones
+      //newList.push(producto) //REF! // validaciones
     }
   });
 

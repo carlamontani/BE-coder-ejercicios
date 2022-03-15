@@ -4,8 +4,7 @@
   "description": "proyectos clase 3",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --inspect src/server.js",
-    "start-ejercicio": "nodemon --inspect src/ejercicio.js"
+    "start": "nodemon --inspect src/ejercicio.js"
   },
   "author": "car",
   "license": "ISC",
