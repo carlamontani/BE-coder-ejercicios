@@ -52,9 +52,9 @@ routerProductos.get("/:id", (req, res) => {
 routerProductos.post("/", (req, res) => {
   const { body } = req;
 
-  const newId = (productos.length)+1
+  const lastProduct = productos.slice(-1)[0]
 
-  productos.push({...body, id : newId})
+  productos.push({...body, id : lastProduct.id+1})
 
   res.status(200).json({
     productos,
@@ -65,7 +65,6 @@ routerProductos.post("/", (req, res) => {
 routerProductos.put("/:id", (req, res) => {
   const { body } = req;
   const { params } = req;
-  //console.log(body, Number(params.id)) 
 
   productos.forEach(producto => {
     if (Number(params.id) === producto.id) { //ver spread operators
@@ -86,13 +85,13 @@ routerProductos.put("/:id", (req, res) => {
 routerProductos.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  productos.forEach(producto => {
-    if (Number(id) === producto.id) {
-      productos.splice(id-1, 1)
-    } else {
-      //newList.push(producto) //REF! // validaciones
+  for (var i = 0; i < productos.length; i++) {
+    var obj = productos[i];
+
+    if (Number(id) === obj.id) {
+      productos.splice(i, 1);
     }
-  });
+  }
 
   res.status(200).json({
     productos,
@@ -107,6 +106,3 @@ console.log(`Server en port http://localhost:8080`)
 )
 
 server.on('error', (err) => console.log(err))
-
-
-//agregar ids
