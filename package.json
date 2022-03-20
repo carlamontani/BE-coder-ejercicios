@@ -21,5 +21,14 @@
   "dependencies": {
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlamontani/BE-coder-ejercicios.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/carlamontani/BE-coder-ejercicios/issues"
+  },
+  "homepage": "https://github.com/carlamontani/BE-coder-ejercicios#readme"
 }
