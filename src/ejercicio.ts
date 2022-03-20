@@ -4,30 +4,52 @@ const contenedor = new Contenedor('productos.txt')
 
 const express = require('express')
 const app = express()
+const { engine } = require("express-handlebars");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static("./src/public"))
+app.use(express.static("public"));
 
 const routerProductos = express.Router();
 
+app.set("views", "./src/views");
+app.set("view engine", "hbs");
 
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "index.hbs",
+    layoutsDir: __dirname + "/views/layout",
+    partialsDir: __dirname + "/views/partials",
+  }),
+);
+
+
+//http://localhost:8088/productos
 routerProductos.get("/", (req: Request, res: Response) => {
   //res.status(200).json(productos);
   async function run() {
-    res.status(200).json(await contenedor.getAll())
+    const productos = await contenedor.getAll()
+    res.render("main", {
+      productos,
+      existe: true,
+    });
   }
   run()
 });
 
+//http://localhost:8088/productos/3
 routerProductos.get("/:id", (req: Request, res: Response) => {
   const idRequested = Number(req.params.id)
 
   async function run() {
     const result = await contenedor.getById(idRequested)
+    console.log(result)
     if (result.length === 1) { 
-      res.status(200).json({
-        productoBuscado: result,
+      res.render("main", {
+        productos: result,
+        existe: true,
       })
     } else {
       res.status(404).json({
@@ -92,9 +114,9 @@ routerProductos.delete("/:id", (req: Request, res: Response) => {
 
 app.use("/productos", routerProductos)
 
-const PORT = 8080
+const PORT = 8088
 const server = app.listen(PORT, () =>
-console.log(`Server en port http://localhost:8080`)
+console.log(`Server en port http://localhost:8088`)
 )
 
 server.on('error', (error:any) => console.log(error))
