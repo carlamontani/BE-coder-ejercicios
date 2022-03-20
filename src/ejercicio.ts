@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 let Contenedor = require('./class/Contenedor');
-const contenedor = new Contenedor('productos.txt')
+const contenedor = new Contenedor('productos.txt');
 
 const express = require('express')
 const app = express()

@@ -1,0 +1,1 @@
+[{"title":"Caperucita","price":67,"thumbnail":"https://picsum.photos/200/300?random=3","id":3},{"title":"Caperucita23","price":303,"thumbnail":"https://picsum.photos/200/300?random=33","id":4}]

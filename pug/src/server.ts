@@ -1,4 +1,5 @@
-let Contenedor = require('Contenedor.ts');
+import { Request, Response } from "express";
+let Contenedor = require('./class/Contenedor');
 const contenedor = new Contenedor('productos.txt')
 
 const express = require('express')
@@ -11,19 +12,18 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", "./src/views");
 app.set("view engine", "pug");
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   async function run() {
     const productos = await contenedor.getAll()
-    console.log(productos)
     res.render("productos", {
-      message: "Productos Disponissssbles",
+      message: "Productos Dispo",
       listOfElements: productos
     });
   }
   run()
 });
 
-app.post("/", (req, res) => {
+app.post("/", (req: Request, res: Response) => {
   res.render("index", {
     message: "Formulario de ingreso",
   });
@@ -33,4 +33,4 @@ const PORT = 8084;
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${PORT}`),
 );
-server.on("error", (err) => console.log(err));
+server.on("error", (error:any) => console.log(error));
