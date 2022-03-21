@@ -31,31 +31,9 @@ routerProductos.get("/", (req: Request, res: Response) => {
   //res.status(200).json(productos);
   async function run() {
     const productos = await contenedor.getAll()
-    res.render("main", {
-      productos,
-      existe: true,
+    res.render("form", {
+      message: "Ingrese producto nuevo"
     });
-  }
-  run()
-});
-
-//http://localhost:8088/productos/3
-routerProductos.get("/:id", (req: Request, res: Response) => {
-  const idRequested = Number(req.params.id)
-
-  async function run() {
-    const result = await contenedor.getById(idRequested)
-    console.log(result)
-    if (result.length === 1) { 
-      res.render("main", {
-        productos: result,
-        existe: true,
-      })
-    } else {
-      res.status(404).json({
-        error: 'producto no encontrado',
-      })
-    }
   }
   run()
 });
@@ -63,51 +41,15 @@ routerProductos.get("/:id", (req: Request, res: Response) => {
 //POST
 routerProductos.post("/", (req: Request, res: Response) => {
   const { body } = req;
-  /*
-  const lastProduct = productos.slice(-1)[0]
-
-  productos.push({...body, id : lastProduct.id+1})
-
-  res.status(200).json({
-    productos,
-  });*/
-
   async function run() {
-    res.status(200).json(await contenedor.save(body)) //devuelve el nuevo id generado, cambiar si quiero devolver la lista nueva
-  }
-  run()
-});
-
-//PUT
-routerProductos.put("/:id", (req: Request, res: Response) => {
-  const { body } = req;
-  const { params } = req;
-
-  async function run() {
-    res.status(200).json(await contenedor.update(body, params)) //devuelve el nuevo id generado, cambiar si quiero devolver la lista nueva
-  }
-  run()
-});
-
-//delete
-routerProductos.delete("/:id", (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  /*
-  for (var i = 0; i < productos.length; i++) {
-    var obj = productos[i];
-
-    if (Number(id) === obj.id) {
-      productos.splice(i, 1);
-    }
-  }
-
-  res.status(200).json({
-    productos,
-  });*/
-
-  async function run() {
-    res.status(200).json(await contenedor.deleteById(id)) //ver que onda los ids
+    await contenedor.save(body)
+    const productos = await contenedor.getAll()
+    res.render("main", {
+      message: "Productos Disponibles",
+      listOfElements: productos,
+      productos,
+      existe: true,
+    });
   }
   run()
 });
