@@ -1,7 +1,8 @@
-let Contenedor = require('Contenedor.ts');
+
+let Contenedor = require('./class/Contenedor');
 const contenedor = new Contenedor('productos.txt')
 
-const express = require('express')
+const express = require("express");
 const app = express()
 const { engine } = require("express-handlebars");
 
@@ -11,22 +12,27 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", "./src/views");
 app.set("view engine", "pug");
 
-app.get("/", (req, res) => {
+app.post('/', (req, res) => {
+  const { body } = req;
   async function run() {
+    await contenedor.save(body)
     const productos = await contenedor.getAll()
-    console.log(productos)
-    res.render("productos", {
-      message: "Productos Disponissssbles",
-      listOfElements: productos
+    res.render("product_display", {
+      message: "Productos Disponibles",
+      listOfElements: productos,
     });
   }
   run()
 });
 
-app.post("/", (req, res) => {
-  res.render("index", {
-    message: "Formulario de ingreso",
-  });
+app.get("/", (req, res) => {
+  async function run() {
+    const productos = await contenedor.getAll()
+    res.render("form", {
+      message: "Ingrese producto nuevo",
+    });
+  }
+  run()
 });
 
 const PORT = 8084;
