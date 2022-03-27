@@ -38,20 +38,35 @@ const products = [
   }
 ];
 
+const messages = [
+  {
+    mail: "carla@gmail.com",
+    message: "Hola",
+    date: "27-3"
+  }
+];
+
 io.on("connection", (socket:any) => {
   console.log("💻 Nuevo usuario conectado!");
 
-  io.sockets.emit("messageBack", products);
+  io.sockets.emit("productBack", products);
   socket.on("disconnect", () => {
     console.log("❌ Usuario desconectado");
   });
-  socket.on("mensajeRespuesta", (data:any) => {
-    console.log(data);
+
+  socket.on("productFront", (data:any) => {
+    products.push(data);
+    io.sockets.emit("productBack", products);
+  });
+
+  io.sockets.emit("messageBack", messages);
+  socket.on("disconnect", () => {
+    console.log("❌ Usuario desconectado");
   });
 
   socket.on("messageFront", (data:any) => {
-    products.push(data);
-    io.sockets.emit("messageBack", products);
+    messages.push(data);
+    io.sockets.emit("messageBack", messages);
   });
 });
 
