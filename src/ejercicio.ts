@@ -42,7 +42,7 @@ const messages = [
   {
     mail: "carla@gmail.com",
     message: "Hola",
-    date: "27-3"
+    date: "2022-03-27"
   }
 ];
 
