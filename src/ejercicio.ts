@@ -30,27 +30,18 @@ app.engine(
 
 const io = new Server(server);
 
-const messages = [
+const products = [
   {
-    author: "Diego",
-    text: "Hola",
-  },
-  {
-    author: "Jorge",
-    text: "Como estan?",
-  },
-  {
-    author: "Ana",
-    text: "Hola grupo",
-  },
+    title: "Agua",
+    price: "100",
+    thumbnail: "https://picsum.photos/200"
+  }
 ];
 
 io.on("connection", (socket:any) => {
-  // Mensaje de bienvenida cuando se conecta un cliente nuevo
   console.log("💻 Nuevo usuario conectado!");
-  socket.emit("mensajeConexion", "Bienvenidos a mi ejercicio de websockets 🔥 🔥 🔥 ");
-  //Enviamos todos los mensajes al nuevo cliente cuando se conecta
-  io.sockets.emit("messageBack", messages);
+
+  io.sockets.emit("messageBack", products);
   socket.on("disconnect", () => {
     console.log("❌ Usuario desconectado");
   });
@@ -58,11 +49,9 @@ io.on("connection", (socket:any) => {
     console.log(data);
   });
 
-  //Recibimos los mensajes desde el frontend
   socket.on("messageFront", (data:any) => {
-    messages.push(data);
-    // io.sockets.emit("message", data);
-    io.sockets.emit("messageBack", messages);
+    products.push(data);
+    io.sockets.emit("messageBack", products);
   });
 });
 
