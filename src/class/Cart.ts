@@ -1,10 +1,14 @@
 import fs from 'fs'
 
 type ProductoType = {
-    id?: number
-    title: string
-    price: number
-    thumbnail: string
+    id?: number,
+    timestamp?: string,
+    title: string,
+    description: string,
+    code: string,
+    thumbnail: string,
+    price: number,
+    stock: number
 }
 
 interface ContenedorType {
@@ -36,7 +40,7 @@ module.exports =  class Contenedor implements ContenedorType {
         this.productos.push(producto)
         try {
             await fs.promises.writeFile(
-                `./src/${this.archivo}`,
+                `./src/data/${this.archivo}`,
                 JSON.stringify(this.productos),
             )
             return this.maxId
@@ -48,7 +52,7 @@ module.exports =  class Contenedor implements ContenedorType {
     async getById(id: number | undefined): Promise<ProductoType[]> {
         try {
             const productos: ProductoType[] = JSON.parse(
-                await fs.promises.readFile(`./src/${this.archivo}`, 'utf-8'),
+                await fs.promises.readFile(`./src/data/${this.archivo}`, 'utf-8'),
             )
             const result = productos.filter(item => item.id == id);
             return result
@@ -60,7 +64,7 @@ module.exports =  class Contenedor implements ContenedorType {
     async getAll(): Promise<ProductoType[]> {
         try {
             const productos: ProductoType[] = JSON.parse(
-                await fs.promises.readFile(`./src/${this.archivo}`, 'utf-8'),
+                await fs.promises.readFile(`./src/data/${this.archivo}`, 'utf-8'),
             )
             this.productos = productos
             this.productos.map((producto: ProductoType) => {
@@ -79,7 +83,7 @@ module.exports =  class Contenedor implements ContenedorType {
         this.productos = result
         try {
             await fs.promises.writeFile(
-                `./src/${this.archivo}`,
+                `./src/data/${this.archivo}`,
                 JSON.stringify(this.productos),
             )
         } catch (error: any) {
@@ -91,7 +95,7 @@ module.exports =  class Contenedor implements ContenedorType {
         this.productos = []
         try {
             await fs.promises.writeFile(
-                `./src/${this.archivo}`,
+                `./src/data/${this.archivo}`,
                 JSON.stringify([]),
             )
         } catch (error: any) {
@@ -114,7 +118,7 @@ module.exports =  class Contenedor implements ContenedorType {
     async update(body:any, params:any): Promise<any> {
         await this.getAll()
         this.productos.forEach(producto => {
-            if (Number(params.id) === producto.id) { //ver spread operators
+            if (Number(params.id) === producto.id) {
                   producto.title = body.title,
                   producto.price = body.price,
                   producto.thumbnail = body.thumbnail,
@@ -123,7 +127,7 @@ module.exports =  class Contenedor implements ContenedorType {
         });
             try {
                 await fs.promises.writeFile(
-                    `./src/${this.archivo}`,
+                    `./src/data/${this.archivo}`,
                     JSON.stringify(this.productos),
                 )
             } catch (error: any) {

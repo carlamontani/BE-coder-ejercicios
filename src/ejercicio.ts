@@ -1,83 +1,40 @@
 import { Request, Response } from "express";
-let Contenedor = require('./class/Contenedor');
-const contenedor = new Contenedor('productos.txt');
+let Products = require('./class/Products');
+const productos = new Products('productos.txt');
 
 const express = require('express')
-const http = require("http");
 const app = express()
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const { engine } = require("express-handlebars");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-//app.use(express.static("./src/public"));
+//app.use(express.static("./src/public"))
 
 const routerProductos = express.Router();
+const routerCarrito = express.Router();
 
-app.set("views", "./src/views");
-app.set("view engine", "hbs");
 
-app.engine(
-  "hbs",
-  engine({
-    extname: ".hbs",
-    defaultLayout: "index.hbs",
-    layoutsDir: __dirname + "/views/layout",
-    partialsDir: __dirname + "/views/partials",
-  }),
-);
-
-const io = new Server(server);
-
-const products = [
-  {
-    title: "Agua",
-    price: "100",
-    thumbnail: "https://picsum.photos/200"
-  }
-];
-
-const messages = [
-  {
-    mail: "carla@gmail.com",
-    message: "Hola",
-    date: "2022-03-27"
-  }
-];
-
-io.on("connection", (socket:any) => {
-  console.log("💻 Nuevo usuario conectado!");
-
-  io.sockets.emit("productBack", products);
-  socket.on("disconnect", () => {
-    console.log("❌ Usuario desconectado");
-  });
-
-  socket.on("productFront", (data:any) => {
-    products.push(data);
-    io.sockets.emit("productBack", products);
-  });
-
-  io.sockets.emit("messageBack", messages);
-  socket.on("disconnect", () => {
-    console.log("❌ Usuario desconectado");
-  });
-
-  socket.on("messageFront", (data:any) => {
-    messages.push(data);
-    io.sockets.emit("messageBack", messages);
-  });
-});
-
-//http://localhost:8088/productos
 routerProductos.get("/", (req: Request, res: Response) => {
   //res.status(200).json(productos);
   async function run() {
-    await contenedor.getAll()
-    res.render("form", {
-      message: "Ingrese producto nuevo"
-    });
+    res.status(200).json(await productos.getAll())
+  }
+  run()
+});
+
+routerProductos.get("/:id", (req: Request, res: Response) => {
+  const idRequested = Number(req.params.id)
+
+  async function run() {
+    const result = await productos.getById(idRequested)
+    if (result.length === 1) { 
+      res.status(200).json({
+        productoBuscado: result,
+      })
+    } else {
+      res.status(404).json({
+        error: 'producto no encontrado',
+      })
+    }
   }
   run()
 });
@@ -85,23 +42,60 @@ routerProductos.get("/", (req: Request, res: Response) => {
 //POST
 routerProductos.post("/", (req: Request, res: Response) => {
   const { body } = req;
+  /*
+  const lastProduct = productos.slice(-1)[0]
+  productos.push({...body, id : lastProduct.id+1})
+  res.status(200).json({
+    productos,
+  });*/
+
   async function run() {
-    await contenedor.save(body)
-    const productos = await contenedor.getAll()
-    res.render("main", {
-      message: "Productos Disponibles",
-      listOfElements: productos,
-      productos,
-      existe: true,
-    });
+    res.status(200).json(await productos.save(body)) //devuelve el nuevo id generado, cambiar si quiero devolver la lista nueva
   }
   run()
 });
 
-app.use("/productos", routerProductos)
+//PUT
+routerProductos.put("/:id", (req: Request, res: Response) => {
+  const { body } = req;
+  const { params } = req;
+
+  async function run() {
+    res.status(200).json(await productos.update(body, params)) //devuelve el nuevo id generado, cambiar si quiero devolver la lista nueva
+  }
+  run()
+});
+
+//delete
+routerProductos.delete("/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  /*
+  for (var i = 0; i < productos.length; i++) {
+    var obj = productos[i];
+    if (Number(id) === obj.id) {
+      productos.splice(i, 1);
+    }
+  }
+  res.status(200).json({
+    productos,
+  });*/
+
+  async function run() {
+    res.status(200).json(await productos.deleteById(id)) //ver que onda los ids
+  }
+  run()
+});
+
+
+
+app.use("/api/productos", routerProductos)
+
+app.use("/api/carrito", routerCarrito)
 
 const PORT = 8088
-server.listen(PORT, () => console.log(`🚀 Server started on port http://localhost:${PORT}`));
-
+const server = app.listen(PORT, () =>
+console.log(`Server en port http://localhost:${PORT}`)
+)
 
 server.on('error', (error:any) => console.log(error))

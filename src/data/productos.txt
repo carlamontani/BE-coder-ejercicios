@@ -1,0 +1,1 @@
+[{"title":"Jugo","price":"100","thumbnail":"#","id":1},{"title":"Mirinda","price":"100","thumbnail":"#","id":2},{"title":"Fanta","price":303,"thumbnail":"https://picsum.photos/200/300?random=33","description":"bebida gaseosa sabor naranja","code":"1FAN","stock":10,"id":3}]
