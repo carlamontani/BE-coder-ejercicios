@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
+const cors = require ("cors");
 let Products = require('./class/Products');
 const productos = new Products('productos.txt');
 
 const express = require('express')
 const app = express()
+app.use(cors());
+
+const port = process.env.PORT|| 8080;
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -93,9 +97,8 @@ app.use("/api/productos", routerProductos)
 
 app.use("/api/carrito", routerCarrito)
 
-const PORT = 8088
-const server = app.listen(PORT, () =>
-console.log(`Server en port http://localhost:${PORT}`)
+const server = app.listen(port, () =>
+console.log(`Server en port http://localhost:${port}`)
 )
 
 server.on('error', (error:any) => console.log(error))
