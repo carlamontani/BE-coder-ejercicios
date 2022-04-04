@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 const cors = require ("cors");
 let Products = require('./class/Products');
 const productos = new Products('productos.txt');
@@ -7,7 +6,7 @@ const express = require('express')
 const app = express()
 app.use(cors());
 
-const port = process.env.PORT|| 8080;
+const port = process.env.PORT|| 8087;
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -17,7 +16,7 @@ const routerProductos = express.Router();
 const routerCarrito = express.Router();
 
 
-routerProductos.get("/", (req: Request, res: Response) => {
+routerProductos.get("/", (req, res) => {
   //res.status(200).json(productos);
   async function run() {
     res.status(200).json(await productos.getAll())
@@ -25,7 +24,7 @@ routerProductos.get("/", (req: Request, res: Response) => {
   run()
 });
 
-routerProductos.get("/:id", (req: Request, res: Response) => {
+routerProductos.get("/:id", (req, res) => {
   const idRequested = Number(req.params.id)
 
   async function run() {
@@ -44,7 +43,7 @@ routerProductos.get("/:id", (req: Request, res: Response) => {
 });
 
 //POST
-routerProductos.post("/", (req: Request, res: Response) => {
+routerProductos.post("/", (req, res) => {
   const { body } = req;
   /*
   const lastProduct = productos.slice(-1)[0]
@@ -60,7 +59,7 @@ routerProductos.post("/", (req: Request, res: Response) => {
 });
 
 //PUT
-routerProductos.put("/:id", (req: Request, res: Response) => {
+routerProductos.put("/:id", (req, res) => {
   const { body } = req;
   const { params } = req;
 
@@ -71,7 +70,7 @@ routerProductos.put("/:id", (req: Request, res: Response) => {
 });
 
 //delete
-routerProductos.delete("/:id", (req: Request, res: Response) => {
+routerProductos.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   /*
@@ -99,4 +98,4 @@ const server = app.listen(port, () =>
 console.log(`Server en port http://localhost:${port}`)
 )
 
-server.on('error', (error:any) => console.log(error))
+server.on('error', (error) => console.log(error))
