@@ -1,4 +1,4 @@
-var fs = require('fs');
+import fs from 'fs'
 /*
 type ProductoType = {
     id?: number,
@@ -22,7 +22,7 @@ interface ContenedorType {
     deleteAll(): Promise<void>
 }*/
 
-module.exports =  class Contenedor {
+export default class Contenedor {
     //productos: ProductoType[]
     //maxId: number
     //archivo: string
