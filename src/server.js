@@ -1,37 +1,25 @@
-import express from "express";
-import dotenv from "dotenv";
-import { config } from "../ej6/config.js";
-import knex from "knex";
-import cors from "cors";
-//import createUsers from "../ej6/createUsers.js";
-dotenv.config();
-
-const db = knex(config);
-
-async function createTables() {
-  try {
-    const exist = await db.schema.hasTable("productos");
-    if (!exist) {
-      await db.schema.createTable("productos", (table) => {
-        table.increments("id").primary().notNullable(),
-          table.string("title").notNullable(),
-          table.string("price").notNullable(),
-          table.string("thumbnail").notNullable();
-          table.string("description").notNullable();
-      });
-      console.log("🔥 Tabla creada correctamente");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-createTables();
-
+import express, { json, urlencoded } from "express";
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(json());
+app.use(urlencoded({ extended: true }));
+
+import { faker } from "@faker-js/faker";
+
+app.get("/api/productos-test", (req, res) => {
+  const n = req.params.n
+  const users = [];
+  for (let i = 0; i < 5; i++) {
+    const user = {
+      id: i + 1,
+      name: faker.name.findName(),
+      price: faker.commerce.price(100),
+      thumbnail: faker.image.abstract(300, 300),
+    };
+    users.push(user);
+  }
+  res.status(200).json({ users });
+});
+
 
 app.get("/", async (req, res) => {
   try {
