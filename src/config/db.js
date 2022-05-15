@@ -5,9 +5,9 @@ dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI, (err) => {
   if (err) {
-    console.log("❌ Error al conectarse a MongoDB");
+    console.log("❌ Error:" + err);
   } else {
-    console.log("🔥 Conectados a MongoDB");
+    console.log("🚀 Connected to MongoDB");
   }
 });
 
