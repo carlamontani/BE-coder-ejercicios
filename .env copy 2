@@ -1,0 +1,4 @@
+MONGO_URI=mongodb://localhost:27017/Coderhouse?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
+
+
+//la ruta del ej anterior

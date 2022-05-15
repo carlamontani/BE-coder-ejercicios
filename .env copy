@@ -2,3 +2,5 @@ HOSTDB: localhost
 USERDB: root
 PASSWORDDB: euridice5C
 DATABASE: giraffe
+
+//ruta de mysql

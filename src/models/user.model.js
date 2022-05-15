@@ -1,3 +1,5 @@
+//PARA AUTORIZACION CON JWT MONGO
+
 import mongoose from "mongoose";
 
 const Schema = new mongoose.Schema(
