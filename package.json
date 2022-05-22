@@ -9,7 +9,8 @@
     "start": "nodemon --inspect ./src/ejercicio.js",
     "start2": "nodemon --inspect ./src/server.js",
     "start3": "nodemon --inspect ./src/index.js",
-    "minimist": "node minimist.js 1 2 3 -m dev -p 8080 -d"
+    "minimist": "node minimist.js 1 2 3 -m dev -p 8080 -d",
+    "server": "MODO=DEV nodemon ./src/server.js 1 2 3 4"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
     "jsonwebtoken": "^8.5.1",
     "knex": "^1.0.5",
     "minimist": "^1.2.6",

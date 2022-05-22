@@ -1,0 +1,4 @@
+PORT=1111
+NODE_ENV=dev
+HOST=http://coderhouse.com
+EMAIL=dev@email.com

@@ -1,0 +1,4 @@
+PORT=2222
+NODE_ENV=prod
+HOST=http://coderhouse.com
+EMAIL=cliente@email.com
