@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --inspect ./src/ejercicio.js",
     "start2": "nodemon --inspect ./src/server.js",
-    "start3": "nodemon --inspect ./src/index.js"
+    "start3": "nodemon --inspect ./src/index.js",
+    "minimist": "node minimist.js 1 2 3 -m dev -p 8080 -d"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +20,10 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^1.0.5",
+    "minimist": "^1.2.6",
     "mongoose": "^6.3.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "yargs": "^17.5.1"
   },
   "devDependencies": {
     "eslint": "^8.13.0"
