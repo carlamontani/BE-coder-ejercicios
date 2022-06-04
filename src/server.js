@@ -57,6 +57,12 @@ app.get("/info", (req, res) => {
   });
 });
 
+//15
+app.get("/", (req, res) => {
+  console.log(`Puerto ${PORT}, PID ${process.pid}`);
+  res.send(`Puerto ${PORT}, PID ${process.pid}`);
+});
+
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${PORT}`),
