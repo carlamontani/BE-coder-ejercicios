@@ -1,6 +1,7 @@
 import "./config/db.js";
 import { UsuariosModel } from "./modules/usuarios.modules.js";
 
+//NO TIENE EXPRESS
 const usuario1 = {
   nombres: "Coderhouse1",
   apellidos: "Backend1",

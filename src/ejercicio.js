@@ -1,6 +1,7 @@
 //clase productos
 //let Products = require('./class/Products');
 //const productos = new Products('productos.txt'); //txt con productos
+// EJERCICIO VIEJO
 
 //express
 import express from "express";

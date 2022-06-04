@@ -9,6 +9,7 @@
     "start": "nodemon --inspect ./src/ejercicio.js",
     "start2": "nodemon --inspect ./src/server.js",
     "start3": "nodemon --inspect ./src/index.js",
+    "start4": "nodemon --inspect ./src/servercluster.js",
     "minimist": "node minimist.js 1 2 3 -m dev -p 8080 -d",
     "server": "MODO=DEV nodemon ./src/server.js 1 2 3 4"
   },
