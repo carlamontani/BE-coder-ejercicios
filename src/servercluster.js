@@ -4,6 +4,7 @@ import os from "os";
 
 const numCPUs = os.cpus().length;
 
+//entrega cluster(?)
 if (cluster.isMaster) {
   console.log(`Masteroooo ${process.pid} is running`);
   for (let i = 0; i < numCPUs; i++) {
