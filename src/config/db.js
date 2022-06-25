@@ -1,7 +1,9 @@
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 
 dotenv.config();
+
+import mongoose from "mongoose";
+
 
 mongoose.connect(process.env.MONGO_URI, (err) => {
   if (err) {

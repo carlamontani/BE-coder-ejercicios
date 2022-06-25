@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/user.model.js";
 import { createTransport } from "nodemailer";
-import dotenv from "dotenv";
 
 export async function createUser(req, res) {
   const { body } = req;
@@ -15,9 +18,6 @@ export async function createUser(req, res) {
     console.log(error);
   }
 }
-
-
-dotenv.config();
 
 const transporter = createTransport({
   host: process.env.SMTP,
