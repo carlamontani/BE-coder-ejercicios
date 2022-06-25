@@ -16,6 +16,10 @@ app.get("/auth", isAuth, (req, res) => {
   res.send("Estas autenticado");
 });
 
+app.get("/", (req, res) => {
+  res.send("Prueba");
+});
+
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${PORT}`),
