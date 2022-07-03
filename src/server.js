@@ -2,6 +2,7 @@ import express from "express";
 import "./config/db.js";
 import UserRouter from "./routers/user.router.js";
 import AuthRouter from "./routers/auth.router.js";
+import DatosRouter from "./routers/datos.router.js"; // borrar
 import { isAuth } from "./middlewares/auth.middleware.js";
 const app = express();
 app.use(express.json());
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/user", UserRouter);
 app.use("/login", AuthRouter);
+app.use("/datos", DatosRouter); // borrar
 
 app.get("/auth", isAuth, (req, res) => {
   console.log("Usuario autorizado", req.user);
