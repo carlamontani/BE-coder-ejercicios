@@ -1,25 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const Schema = new mongoose.Schema({
+const Schema = new mongoose.Schema(
+  {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     body: {
       type: String,
-      required: true
+      required: true,
     },
     author: {
       type: String,
-      required: true
+      required: true,
     },
     image: {
       type: String,
-      required: true
-    }
-  },{
-    timestamps: true
-  }
-)
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-export const NewsModel = mongoose.model('News', Schema)
+export const NewsModel = mongoose.model("News", Schema);
