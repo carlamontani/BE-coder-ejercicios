@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "file": "nodemon --inspect --ignore 'news.json' ./src/server.js",
-    "mongo": "nodemon --inspect ./src/server.js mongo"
+    "mongo": "nodemon --inspect ./src/server.js mongo",
+    "graphql": "nodemon --inspect ./src/server2.js mongo"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,10 @@
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.5.0",
     "mongoose": "^6.4.4",
+    "uuid": "^8.3.2",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
