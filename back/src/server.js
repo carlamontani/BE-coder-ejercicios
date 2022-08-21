@@ -1,7 +1,9 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
-import newsRouter from "./routers/news.router.js"
+//import newsRouter from "./routers/news.router.js"
+import productsRouter from "./routers/products.router.js"
+import ordersRouter from "./routers/orders.router.js"
 
 dotenv.config()
 
@@ -28,13 +30,13 @@ app.use(express.urlencoded({ extended: true }))
 
 
 
-app.use("/news", newsRouter)
+app.use("/products", productsRouter)
 /*
 app.get('/', (req, res) => {
   res.status(200).send('holaaaa')
 })*/
 
-
+app.use("/orders", ordersRouter) //ordenes
 
 const PORT = process.env.PORT || 3030
 const server = app.listen(PORT, () =>

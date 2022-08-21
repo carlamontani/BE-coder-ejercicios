@@ -16,4 +16,6 @@ router.post("/", productsController.createProducts);
 //router.get("/:category", productsController.getProductsCategory);
 //agregar un delete
 
+
+
 export default router;

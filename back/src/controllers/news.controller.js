@@ -1,5 +1,6 @@
 import DAO from "../services/DAOs/newsFactory.js";
-import DTO from "../services/DTOs/news.DTO.js";
+//import DTO from "../services/DTOs/news.DTO.js";
+import DTO from "../services/DTOs/products.DTO.js";
 
 export async function getAllNews(req, res) {
   try {

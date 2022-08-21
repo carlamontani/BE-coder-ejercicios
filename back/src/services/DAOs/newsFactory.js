@@ -1,5 +1,6 @@
 import { NewsFile } from './newsFile.DAO.js'
 import { NewsMongo } from './newsMongo.DAO.js'
+import { ProductsMongo } from './productsMongo.DAO.js'
 
 const selectedDAO = process.argv[2]
 
@@ -8,7 +9,8 @@ let DAO=null
 switch(selectedDAO) {
   case 'mongo':
     NewsMongo.init()
-    DAO = new NewsMongo()
+    //DAO = new NewsMongo()
+    DAO = new ProductsMongo()
     break
   default:
     DAO = new NewsFile()

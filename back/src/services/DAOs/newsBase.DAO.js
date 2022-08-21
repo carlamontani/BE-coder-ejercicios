@@ -1,13 +1,13 @@
 export class NewsBase{
   getAllNews(){
-    console.log('lalala')
+    console.log('lalala1')
   }
 
   getNews(id){
-    console.log('lalala')
+    console.log('lalala2')
   }
 
   creatNews(news){
-    console.log('lalala')
+    console.log('lalala3')
   }
 }
